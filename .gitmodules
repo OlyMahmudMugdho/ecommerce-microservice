@@ -1,0 +1,3 @@
+[submodule "ecommerce-auth-microservice"]
+	path = ecommerce-auth-microservice
+	url = https://github.com/OlyMahmudMugdho/ecommerce-auth-microservice.git
