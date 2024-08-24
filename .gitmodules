@@ -10,3 +10,6 @@
 [submodule "ecommerce-cart-microservice"]
 	path = ecommerce-cart-microservice
 	url = https://github.com/OlyMahmudMugdho/ecommerce-cart-microservice.git
+[submodule "ecommerce-ui"]
+	path = ecommerce-ui
+	url = https://github.com/OlyMahmudMugdho/ecommerce-ui.git
