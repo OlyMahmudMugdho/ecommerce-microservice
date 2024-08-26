@@ -11,6 +11,7 @@ services:
     image: postgres:alpine
     container_name: ims-db
     environment:
+      POSTGRES_DB: "postgres"
       POSTGRES_PASSWORD: mysecretpassword
     restart: always
     ports:
@@ -76,10 +77,6 @@ services:
   auth-app:
     image: olymahmudmugdho/ecommerce-auth-microservice
     container_name: auth-app
-    environment:
-      DATABASE_URL: "postgresql://postgres:mysecretpassword@auth-db:5432/_auth"
-      ACCESS_TOKEN_SECRET: "5511e1f7b6"
-      REFRESH_TOKEN_SECRET: "2343342c2"
     ports:
       - "8082:8082"
     depends_on:
@@ -91,7 +88,7 @@ services:
     image: olymahmudmugdho/ecommerce-cart-microservice
     container_name: cart-app
     environment:
-      DATABASE_URL: "postgresql://postgres:mysecretpassword@carts-db:5432/_carts"
+      DATABASE_URL: "postgresql://postgres:mysecretpassword@carts-db/_carts"
     ports:
       - "8083:8083"
     depends_on:
@@ -104,12 +101,25 @@ services:
     container_name: order-app
     ports:
       - "8084:8084"
+    depends_on:
+      - kafka
+    networks:
+      - ecommerce
+
+  api-gateway:
+    image: olymahmudmugdho/ecommerce-api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-app
+      - cart-app
     networks:
       - ecommerce
 
 networks:
   ecommerce:
-    driver: bridge
+    name: ecommerce
 
 volumes:
   ims-db-volume:
