@@ -43,7 +43,7 @@ services:
 
 
   ims-db:
-    image: postgres:alpine
+    image: postgres:16-alpine
     container_name: ims-db
     environment:
       POSTGRES_DB: "postgres"
@@ -57,7 +57,7 @@ services:
       - ims-db-volume:/var/lib/postgresql/data
 
   auth-db:
-    image: postgres:alpine
+    image: postgres:16-alpine
     container_name: auth-db
     environment:
       POSTGRES_DB: "_auth"
@@ -71,7 +71,7 @@ services:
       - auth-db-volume:/var/lib/postgresql/data
 
   carts-db:
-    image: postgres:alpine
+    image: postgres:16-alpine
     container_name: carts-db
     environment:
       POSTGRES_DB: "_carts"
@@ -83,20 +83,6 @@ services:
       - ecommerce
     volumes:
       - carts-db-volume:/var/lib/postgresql/data
-
-  orders-db:
-    image: postgres:alpine
-    container_name: orders-db
-    environment:
-      POSTGRES_DB: "_orders"
-      POSTGRES_PASSWORD: mysecretpassword
-    restart: always
-    ports:
-      - "5435:5432"
-    networks:
-      - ecommerce
-    volumes:
-      - orders-db-volume:/var/lib/postgresql/data
 
   ims-app:
     image: olymahmudmugdho/inventory-management-system
